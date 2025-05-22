@@ -1,0 +1,30 @@
+// public/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Calculator</title>
+</head>
+<body>
+  <h1>Simple Calculator</h1>
+  <input type="number" id="a" placeholder="First number" />
+  <input type="number" id="b" placeholder="Second number" />
+  <select id="op">
+    <option value="sum">+</option>
+    <option value="mul">*</option>
+  </select>
+  <button onclick="calculate()">Calculate</button>
+  <p>Result: <span id="result"></span></p>
+
+  <script>
+    async function calculate() {
+      const a = document.getElementById('a').value;
+      const b = document.getElementById('b').value;
+      const op = document.getElementById('op').value;
+      const res = await fetch(`/api/calc?a=${a}&b=${b}&op=${op}`);
+      const data = await res.json();
+      document.getElementById('result').textContent = data.result;
+    }
+  </script>
+</body>
+</html>
